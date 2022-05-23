@@ -9,3 +9,4 @@ Using [motor racing API](https://ergast.com/mrd/) to retrieve data from Formula 
 ## Credits
 
 - Valentin Magry
+- Ergast API Developers
