@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import fetchAPI from "../services/fetchAPI";
+import { Link, Outlet } from "react-router-dom";
 
 
-export default function Seasons(){
+export function Seasons(){
     const [seasons, setSeasons] = useState([]);
 
     useEffect(() => {
@@ -12,9 +13,19 @@ export default function Seasons(){
     return (
         <div>
             <h2>Seasons</h2>
-            <ul>
-                {seasons.map(season => (<li>{season.season}</li>) )}
+            <ul className='seasonsList'>
+                {seasons.map(season => (<Link to={season.season}>{season.season}</Link>))}
             </ul>
+            <Outlet />
         </div>
     );
+}
+
+export function Season(props){
+
+    return (
+        <div>
+            One season
+        </div>
+    )
 }

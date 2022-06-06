@@ -5,8 +5,7 @@ export default function Teams(){
     const [teams, setTeams] = useState([]);
 
     useEffect(() => {
-        const currentYear = new Date().getFullYear();
-        fetchAPI(currentYear+'/constructors', {limit: 10}).then(data => setTeams(data.MRData.ConstructorTable.Constructors));
+        fetchAPI('current/constructors', {limit: 10}).then(data => setTeams(data.MRData.ConstructorTable.Constructors));
     }, []);
 
     return (

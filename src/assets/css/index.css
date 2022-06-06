@@ -11,3 +11,133 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+:root{
+  --red: 255, 40, 0;
+  --dark-red: 82, 0, 2;
+  --yellow: 255, 221, 0;
+}
+
+@font-face {
+  font-family: 'Sequel100Black-45';
+  src: url('../fonts/Sequel100Black-45.woff2') format('woff2'),
+      url('../fonts/Sequel100Black-45.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BelfastGrotesk';
+  src: url('../fonts/BelfastGrotesk-Regular.woff2') format('woff2'),
+      url('../fonts/BelfastGrotesk-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+h1, h2, h3, h4, h5, h6{
+  font-family: 'Sequel100Black-45';
+}
+
+p, li, a, button, input, textarea{
+  font-family: 'BelfastGrotesk';
+}
+
+a{
+  color: rgb(var(--red));
+  transition: .35s ease;
+}
+
+a:hover, a:focus, a:active{
+  color: rgb(var(--dark-red));
+}
+
+.container{
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 1000px){
+  .container{
+    max-width: 768px;
+  }
+}
+
+@media screen and (max-width: 800px){
+  .container{
+    max-width: 90%;
+  }
+}
+
+
+.row{
+  display: flex;
+}
+
+.col-md-6{
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.btn{
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: .35s ease;
+}
+
+.btn:hover, .btn:focus, .btn:active{
+  filter: brightness(0.8);
+}
+
+.btn-primary{
+  background-color: rgb(var(--dark-red));
+}
+
+.btn-secondary{
+  background-color: rgb(var(--yellow));
+}
+
+.btn-third{
+  background-color: rgb(var(--red));
+}
+
+.btn-text-black{
+  color: black;
+}
+
+.NotFound{
+  text-align: center;
+  margin-top: 25vh;
+}
+
+table{
+  border: 1px solid #000;
+  border-spacing: 0;
+  width: 100%;
+  text-align: center;
+}
+
+th{
+  padding: 15px;
+  background-color: rgb(var(--dark-red));
+  color: #FFF;
+}
+
+td{
+  padding: 5px;
+  border: 1px solid #000;
+}
+
+td:empty{
+  background-color: #000;
+}
+
+.center{
+  width: 100%;
+  text-align: center;
+}
