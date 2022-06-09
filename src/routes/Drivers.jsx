@@ -37,9 +37,14 @@ export default function Drivers(){
 
     const getConstructor = async (year, driver) => {
         const team = await fetchAPI(`${year}/drivers/${driver.driverId}/constructors`, { limit: 1 }).then(constructorData => {
-            if(!teams.find(t => t.constructorId === constructorData.MRData.ConstructorTable.Constructors[0].constructorId)){
-                setTeams(teams => [...teams, constructorData.MRData.ConstructorTable.Constructors[0]]);
-            }
+            setTeams(teams => {
+                if(!teams.find(t => t.constructorId === constructorData.MRData.ConstructorTable.Constructors[0].constructorId)){
+                    return [...teams, constructorData.MRData.ConstructorTable.Constructors[0]]     
+                }
+                else{
+                    return [...teams];
+                }
+            });
             return constructorData.MRData.ConstructorTable.Constructors[0].constructorId;
         });
         return team;
@@ -52,7 +57,7 @@ export default function Drivers(){
 
     useEffect(() => {
         fetchAPI('seasons', {limit: 100}).then(data => setSeasons(data.MRData.SeasonTable.Seasons.reverse()));
-        getDrivers(currentYear, {limit: 20}).then(() => setLoading(false));
+        getDrivers(currentYear, {limit: 100}).then(() => setLoading(false));
     }, []);
 
     return (

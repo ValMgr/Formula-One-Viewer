@@ -9,7 +9,7 @@ function Header(){
                 <Link to="/">Home</Link>
                 <Link to="/seasons">Seasons</Link>
                 <Link to="/drivers">Drivers</Link>
-                <Link to="/teams">Teams</Link>
+                {/* <Link to="/teams">Teams</Link> */}
             </nav>
         </header>
     )
