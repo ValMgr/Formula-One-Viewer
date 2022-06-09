@@ -3,6 +3,8 @@ import fetchAPI from "../services/fetchAPI";
 import { Link, Outlet } from "react-router-dom";
 import SeasonShort from '../components/SeasonShort';
 
+import ConstructorRank from '../components/ConstructorRank';
+import DriverRank from '../components/DriverRank';
 
 export function Seasons(){
     const [seasons, setSeasons] = useState([]);
@@ -47,11 +49,37 @@ export function Seasons(){
     );
 }
 
-export function Season(props){
+
+
+export function Season(){
+    const year = parseInt(window.location.pathname.split('/')[2]);
+    const [driverRank, setDriverRank] = useState([]);
+    const [constructorRank, setConstructorRank] = useState([]);
+
+    const getDriverRank = async () => {
+        const driverRank = await fetchAPI(year+'/driverStandings').then(data => data.MRData.StandingsTable.StandingsLists[0].DriverStandings);
+        setDriverRank(driverRank);
+    }
+
+    const getConstructorRank = async () => {
+        const constructorRank = await fetchAPI(year+'/constructorStandings').then(data => data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings);
+        setConstructorRank(constructorRank);
+    }
+
+    useEffect(() => {
+        getDriverRank();
+        getConstructorRank();
+    }, []);
 
     return (
         <div>
-            One season
+            <Link className='btn btn-secondary' to="/seasons">Back</Link>
+            <h2>Formula One {year} Championship</h2>
+
+            <DriverRank rank={driverRank} />
+            <hr />
+            <ConstructorRank rank={constructorRank} />
+
         </div>
     )
 }
