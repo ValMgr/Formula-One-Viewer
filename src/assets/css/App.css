@@ -84,6 +84,6 @@ ul > *{
   margin: .1rem 0;
 }
 
-.seasonCard span{
+.seasonCard span, table span{
   font-size: .7rem;
 }

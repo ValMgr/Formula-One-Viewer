@@ -5,6 +5,7 @@ import SeasonShort from '../components/SeasonShort';
 
 import ConstructorRank from '../components/ConstructorRank';
 import DriverRank from '../components/DriverRank';
+import RaceSchedule from '../components/RaceSchedule';
 
 export function Seasons(){
     const [seasons, setSeasons] = useState([]);
@@ -55,6 +56,7 @@ export function Season(){
     const year = parseInt(window.location.pathname.split('/')[2]);
     const [driverRank, setDriverRank] = useState([]);
     const [constructorRank, setConstructorRank] = useState([]);
+    const [raceSchedule, setRaceSchedule] = useState([]);
 
     const getDriverRank = async () => {
         const driverRank = await fetchAPI(year+'/driverStandings').then(data => data.MRData.StandingsTable.StandingsLists[0].DriverStandings);
@@ -66,9 +68,20 @@ export function Season(){
         setConstructorRank(constructorRank);
     }
 
+    const getRaceSchedule = async () => {
+        const raceSchedule = await fetchAPI(year).then(data => data.MRData.RaceTable.Races);
+        raceSchedule.forEach(async (race, index) => {
+            race.pole = await fetchAPI(year+'/'+(index+1)+'/qualifying', {limit: 1}).then(data => data.MRData.RaceTable.Races.length > 0 ? data.MRData.RaceTable.Races[0].QualifyingResults[0] : null);
+            race.podium = await fetchAPI(year+'/'+(index+1)+'/results', {limit: 3}).then(data => data.MRData.RaceTable.Races.length > 0 ? data.MRData.RaceTable.Races[0].Results : null);
+            setRaceSchedule([...raceSchedule], race);
+        });
+    }
+
+
     useEffect(() => {
         getDriverRank();
         getConstructorRank();
+        getRaceSchedule();
     }, []);
 
     return (
@@ -78,8 +91,9 @@ export function Season(){
 
             <DriverRank rank={driverRank} />
             <hr />
-            <ConstructorRank rank={constructorRank} />
-
+            {constructorRank.length > 0 && <ConstructorRank rank={constructorRank} /> }
+            {constructorRank.length > 0 && <hr />}
+            <RaceSchedule races={raceSchedule} />
         </div>
     )
 }

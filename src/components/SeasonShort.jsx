@@ -7,7 +7,6 @@ export default function SeasonShort(props){
     const link = '/seasons/'+season.season;
     let cssClass = 'seasonCard';
     cssClass += currentYear === parseInt(season.season) ? 'currentSeason' : '';
-    console.log(currentYear, parseInt(season.season));
 
     return (
         <Link to={link} className="seasonCard">
